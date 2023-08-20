@@ -1,9 +1,9 @@
-package nl.teamdiopside.forge;
+package nl.teamdiopside.separatedleaves.forge;
 
 import dev.architectury.platform.forge.EventBuses;
-import nl.teamdiopside.SeparatedLeaves;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import nl.teamdiopside.separatedleaves.SeparatedLeaves;
 
 @Mod(SeparatedLeaves.MOD_ID)
 public class SeparatedLeavesForge {

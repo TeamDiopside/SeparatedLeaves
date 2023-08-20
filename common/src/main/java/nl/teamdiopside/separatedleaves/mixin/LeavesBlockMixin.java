@@ -1,4 +1,4 @@
-package nl.teamdiopside.mixin;
+package nl.teamdiopside.separatedleaves.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

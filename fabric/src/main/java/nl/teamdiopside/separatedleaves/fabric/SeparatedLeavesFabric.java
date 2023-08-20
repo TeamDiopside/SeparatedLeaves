@@ -1,7 +1,7 @@
-package nl.teamdiopside.fabric;
+package nl.teamdiopside.separatedleaves.fabric;
 
-import nl.teamdiopside.SeparatedLeaves;
 import net.fabricmc.api.ModInitializer;
+import nl.teamdiopside.separatedleaves.SeparatedLeaves;
 
 public class SeparatedLeavesFabric implements ModInitializer {
     @Override

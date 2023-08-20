@@ -1,4 +1,4 @@
-package nl.teamdiopside;
+package nl.teamdiopside.separatedleaves;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.platform.Platform;
@@ -13,7 +13,7 @@ public class SeparatedLeavesExpectPlatform {
      * platform sub-package, with its class suffixed with {@code Impl}.
      * <p>
      * Example:
-     * Expect: nl.teamdiopside.SeparatedLeavesExpectPlatform#getConfigDirectory()
+     * Expect: nl.teamdiopside.separatedleaves.SeparatedLeavesExpectPlatform#getConfigDirectory()
      * Actual Fabric: net.examplemod.fabric.ExampleExpectPlatformImpl#getConfigDirectory()
      * Actual Forge: net.examplemod.forge.ExampleExpectPlatformImpl#getConfigDirectory()
      * <p>

@@ -1,4 +1,4 @@
-package nl.teamdiopside;
+package nl.teamdiopside.separatedleaves;
 
 import java.util.logging.Logger;
 

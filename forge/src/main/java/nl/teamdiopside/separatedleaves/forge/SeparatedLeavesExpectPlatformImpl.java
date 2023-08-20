@@ -1,7 +1,7 @@
-package nl.teamdiopside.forge;
+package nl.teamdiopside.separatedleaves.forge;
 
-import nl.teamdiopside.SeparatedLeavesExpectPlatform;
 import net.minecraftforge.fml.loading.FMLPaths;
+import nl.teamdiopside.separatedleaves.SeparatedLeavesExpectPlatform;
 
 import java.nio.file.Path;
 

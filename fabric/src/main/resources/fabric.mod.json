@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "nl.teamdiopside.fabric.SeparatedLeavesFabric"
+      "nl.teamdiopside.separatedleaves.fabric.SeparatedLeavesFabric"
     ]
   },
   "mixins": [

@@ -1,7 +1,7 @@
-package nl.teamdiopside.fabric;
+package nl.teamdiopside.separatedleaves.fabric;
 
-import nl.teamdiopside.SeparatedLeavesExpectPlatform;
 import net.fabricmc.loader.api.FabricLoader;
+import nl.teamdiopside.separatedleaves.SeparatedLeavesExpectPlatform;
 
 import java.nio.file.Path;
 
