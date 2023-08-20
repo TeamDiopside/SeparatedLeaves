@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "nl.teamdiopside.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+    "LeavesBlockMixin"
+  ],
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
