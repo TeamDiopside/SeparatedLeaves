@@ -1,10 +1,10 @@
 {
   "required": true,
-  "package": "nl.teamdiopside.mixin",
+  "package": "nl.teamdiopside.separatedleaves.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "nl.teamdiopside.separatedleaves.mixin.LeavesBlockMixin"
+    "LeavesBlockMixin"
   ],
   "mixins": [
   ],

@@ -46,16 +46,19 @@ public abstract class LeavesBlockMixin {
     }
 
     @Unique
-    private static String separatedLeaves$getWoodType(String string) {
-        if (string.equals("alazea_leaves") || string.equals("flowering_azalea_leaves")) {
-            return "oak";
-        } else {
-            return string.replace("_leaves", "");
+    private static String separatedLeaves$getWoodType(String leaves) {
+        if (leaves.contains("flowering_")) {
+            leaves = leaves.replace("flowering_", "");
         }
+        return leaves.replace("_leaves", "");
     }
 
     @Unique
     private static boolean separatedLeaves$isCertainLog(String wood, String log) {
+        if (wood.equals("azalea")) {
+            wood = "oak";
+        }
+
         return log.equals(wood + "_log") ||
                 log.equals(wood + "_wood") ||
                 log.equals("stripped_" + wood + "_log") ||
