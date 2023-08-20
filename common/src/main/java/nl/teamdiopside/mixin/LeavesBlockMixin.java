@@ -7,8 +7,8 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import nl.teamdiopside.SeparatedLeaves;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -23,19 +23,20 @@ public abstract class LeavesBlockMixin {
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (Direction direction : Direction.values()) {
             mutableBlockPos.setWithOffset(blockPos, direction);
-            i = Math.min(i, getDistance(blockState, levelAccessor.getBlockState(mutableBlockPos)) + 1);
+            i = Math.min(i, separatedLeaves$getDistance(blockState, levelAccessor.getBlockState(mutableBlockPos)) + 1);
             if (i == 1) break;
         }
         cir.setReturnValue(blockState.setValue(DISTANCE, i));
     }
 
-    private static int getDistance(BlockState thisState, BlockState targetState) {
+    @Unique
+    private static int separatedLeaves$getDistance(BlockState thisState, BlockState targetState) {
         String thisLeaves = Registry.BLOCK.getKey(thisState.getBlock()).getPath();
         String target = Registry.BLOCK.getKey(targetState.getBlock()).getPath();
-        String thisWoodType = getWoodType(thisLeaves);
-        String targetWoodType = getWoodType(target);
+        String thisWoodType = separatedLeaves$getWoodType(thisLeaves);
+        String targetWoodType = separatedLeaves$getWoodType(target);
 
-        if (targetState.is(BlockTags.LOGS) && isCertainLog(thisWoodType, target)) {
+        if (targetState.is(BlockTags.LOGS) && separatedLeaves$isCertainLog(thisWoodType, target)) {
                 return 0;
         }
         if (targetState.getBlock() instanceof LeavesBlock && thisWoodType.equals(targetWoodType)) {
@@ -44,19 +45,20 @@ public abstract class LeavesBlockMixin {
         return 7;
     }
 
-    private static String getWoodType(String string) {
-        if (string.equals("flowering_azalea_leaves")) {
-            return "azalea";
+    @Unique
+    private static String separatedLeaves$getWoodType(String string) {
+        if (string.equals("alazea_leaves") || string.equals("flowering_azalea_leaves")) {
+            return "oak";
         } else {
             return string.replace("_leaves", "");
         }
     }
 
-    private static boolean isCertainLog(String wood, String log) {
-        return
-                log.equals(wood + "_log") ||
-                        log.equals(wood + "_wood") ||
-                        log.equals("stripped_" + wood + "_log") ||
-                        log.equals("stripped_" + wood + "_wood");
+    @Unique
+    private static boolean separatedLeaves$isCertainLog(String wood, String log) {
+        return log.equals(wood + "_log") ||
+                log.equals(wood + "_wood") ||
+                log.equals("stripped_" + wood + "_log") ||
+                log.equals("stripped_" + wood + "_wood");
     }
 }
