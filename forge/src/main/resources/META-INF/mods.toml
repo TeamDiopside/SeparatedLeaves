@@ -1,33 +1,33 @@
 modLoader = "javafml"
 loaderVersion = "[40,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT License"
 
 [[mods]]
-modId = "examplemod"
+modId = "separatedleaves"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Separated Leaves"
+authors = "LarsMans"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+This mod makes leaves only connect to their corresponding log type
 '''
 #logoFile = ""
 
-[[dependencies.examplemod]]
+[[dependencies.separatedleaves]]
 modId = "forge"
 mandatory = true
 versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.separatedleaves]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.18.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.separatedleaves]]
 modId = "architectury"
 mandatory = true
 versionRange = "[4.11.91,)"

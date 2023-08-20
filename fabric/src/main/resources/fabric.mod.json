@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "separatedleaves",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Separated Leaves",
+  "description": "This mod makes leaves only connect to their corresponding log type",
   "authors": [
-    "Me!"
+    "LarsMans"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "sources": "https://github.com/TeamDiopside/SeparatedLeaves"
   },
-  "license": "Insert License Here",
+  "license": "MIT License",
   "icon": "assets/examplemod/icon.png",
   "environment": "*",
   "entrypoints": {
