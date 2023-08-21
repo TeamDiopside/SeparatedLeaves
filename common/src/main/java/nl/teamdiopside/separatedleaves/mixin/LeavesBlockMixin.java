@@ -2,7 +2,6 @@ package nl.teamdiopside.separatedleaves.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -19,6 +18,11 @@ import static net.minecraft.world.level.block.LeavesBlock.DISTANCE;
 public abstract class LeavesBlockMixin {
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
     private static void updateDistance(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, CallbackInfoReturnable<BlockState> cir) {
+        String namespace = blockState.getBlock().arch$registryName().getNamespace();
+        if (!(namespace.equals("minecraft") || namespace.equals("biomesoplenty") || namespace.equals("autumnity") || namespace.equals("quark") || namespace.equals("windswept") || namespace.equals("ecologist"))) {
+            return;
+        }
+
         int i = 7;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (Direction direction : Direction.values()) {
@@ -31,12 +35,13 @@ public abstract class LeavesBlockMixin {
 
     @Unique
     private static int separatedLeaves$getDistance(BlockState thisState, BlockState targetState) {
-        String thisLeaves = Registry.BLOCK.getKey(thisState.getBlock()).getPath();
-        String target = Registry.BLOCK.getKey(targetState.getBlock()).getPath();
+        String thisLeaves = thisState.getBlock().arch$registryName().getPath();
+        String target = targetState.getBlock().arch$registryName().getPath();
         String thisWoodType = separatedLeaves$getWoodType(thisLeaves);
         String targetWoodType = separatedLeaves$getWoodType(target);
 
-        if (targetState.is(BlockTags.LOGS) && separatedLeaves$isCertainLog(thisWoodType, target)) {
+        String namespace = thisState.getBlock().arch$registryName().getNamespace();
+        if (targetState.is(BlockTags.LOGS) && separatedLeaves$isCertainLog(thisWoodType, target, namespace)) {
                 return 0;
         }
         if (targetState.getBlock() instanceof LeavesBlock && thisWoodType.equals(targetWoodType)) {
@@ -46,17 +51,23 @@ public abstract class LeavesBlockMixin {
     }
 
     @Unique
-    private static String separatedLeaves$getWoodType(String leaves) {
-        if (leaves.contains("flowering_")) {
-            leaves = leaves.replace("flowering_", "");
+    private static String separatedLeaves$getWoodType(String string) {
+        if (string.contains("flowering_")) {
+            string = string.replace("flowering_", "");
         }
-        return leaves.replace("_leaves", "");
+        return string.replace("_leaves", "");
     }
 
     @Unique
-    private static boolean separatedLeaves$isCertainLog(String wood, String log) {
-        if (wood.equals("azalea")) {
-            wood = "oak";
+    private static boolean separatedLeaves$isCertainLog(String wood, String log, String namespace) {
+        switch (wood) {
+            case "azalea", "origin" -> wood = "oak";
+            case "white_cherry", "pink_cherry", "snowblossom" -> wood = "cherry";
+            case "maple" -> wood = namespace.equals("biomesoplenty") ? "oak" : "maple";
+            case "orange_maple", "red_maple", "yellow_maple" -> wood = "maple";
+            case "yellow_autumn", "rainbow_birch" -> wood = "birch";
+            case "orange_autumn" -> wood = "dark_oak";
+            case "red_blossom", "orange_blossom", "yellow_blossom", "blue_blossom", "lavender_blossom", "pink_blossom" -> wood = "blossom";
         }
 
         return log.equals(wood + "_log") ||
