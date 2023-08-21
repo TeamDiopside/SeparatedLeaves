@@ -10,8 +10,8 @@
   "contact": {
     "sources": "https://github.com/TeamDiopside/SeparatedLeaves"
   },
-  "license": "MIT License",
-  "icon": "assets/examplemod/icon.png",
+  "license": "All Rights Reserved",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

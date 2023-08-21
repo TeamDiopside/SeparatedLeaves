@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[40,)"
 #issueTrackerURL = ""
-license = "MIT License"
+license = "All Rights Reserved"
 
 [[mods]]
 modId = "separatedleaves"
@@ -11,7 +11,7 @@ authors = "LarsMans"
 description = '''
 This mod makes leaves only connect to their corresponding log type
 '''
-#logoFile = ""
+logoFile = "icon.png"
 
 [[dependencies.separatedleaves]]
 modId = "forge"
