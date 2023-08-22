@@ -2,7 +2,7 @@ package nl.teamdiopside.separatedleaves.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,8 +18,13 @@ import static net.minecraft.world.level.block.LeavesBlock.DISTANCE;
 public abstract class LeavesBlockMixin {
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
     private static void updateDistance(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, CallbackInfoReturnable<BlockState> cir) {
+
+        if (levelAccessor.isClientSide()) {
+            return;
+        }
+
         String namespace = blockState.getBlock().arch$registryName().getNamespace();
-        if (!(namespace.equals("minecraft") || namespace.equals("biomesoplenty") || namespace.equals("autumnity") || namespace.equals("quark") || namespace.equals("windswept") || namespace.equals("ecologist"))) {
+        if (!(namespace.equals("minecraft") || namespace.equals("biomesoplenty") || namespace.equals("autumnity") || namespace.equals("quark") || namespace.equals("windswept") || namespace.equals("ecologist") || namespace.equals("environmental") || namespace.equals("atmospheric"))) {
             return;
         }
 
@@ -35,14 +40,13 @@ public abstract class LeavesBlockMixin {
 
     @Unique
     private static int separatedLeaves$getDistance(BlockState thisState, BlockState targetState) {
-        String thisLeaves = thisState.getBlock().arch$registryName().getPath();
-        String target = targetState.getBlock().arch$registryName().getPath();
-        String thisWoodType = separatedLeaves$getWoodType(thisLeaves);
-        String targetWoodType = separatedLeaves$getWoodType(target);
+        ResourceLocation thisLeaves = thisState.getBlock().arch$registryName();
+        ResourceLocation target = targetState.getBlock().arch$registryName();
+        String thisWoodType = separatedLeaves$getWoodType(thisLeaves.getPath());
+        String targetWoodType = separatedLeaves$getWoodType(target.getPath());
 
-        String namespace = thisState.getBlock().arch$registryName().getNamespace();
-        if (targetState.is(BlockTags.LOGS) && separatedLeaves$isCertainLog(thisWoodType, target, namespace)) {
-                return 0;
+        if (separatedLeaves$isCertainLog(thisWoodType, target.getPath(), thisLeaves.getNamespace())) {
+            return 0;
         }
         if (targetState.getBlock() instanceof LeavesBlock && thisWoodType.equals(targetWoodType)) {
             return targetState.getValue(DISTANCE);
@@ -68,11 +72,14 @@ public abstract class LeavesBlockMixin {
             case "yellow_autumn", "rainbow_birch" -> wood = "birch";
             case "orange_autumn" -> wood = "dark_oak";
             case "red_blossom", "orange_blossom", "yellow_blossom", "blue_blossom", "lavender_blossom", "pink_blossom" -> wood = "blossom";
+            case "white_wisteria", "pink_wisteria", "purple_wisteria", "blue_wisteria" -> wood = "wisteria";
         }
 
         return log.equals(wood + "_log") ||
                 log.equals(wood + "_wood") ||
                 log.equals("stripped_" + wood + "_log") ||
-                log.equals("stripped_" + wood + "_wood");
+                log.equals("stripped_" + wood + "_wood") ||
+                log.equals("watchful_" + wood + "_log") ||
+                log.equals("watchful_" + wood + "_wood");
     }
 }
