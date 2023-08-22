@@ -18,9 +18,6 @@ import static net.minecraft.world.level.block.LeavesBlock.DISTANCE;
 public abstract class LeavesBlockMixin {
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
     private static void updateDistance(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, CallbackInfoReturnable<BlockState> cir) {
-        if (levelAccessor.isClientSide()) {
-            return;
-        }
         String namespace = blockState.getBlock().arch$registryName().getNamespace();
         if (!(namespace.equals("minecraft") || namespace.equals("biomesoplenty") || namespace.equals("autumnity") || namespace.equals("quark") || namespace.equals("windswept") || namespace.equals("ecologist"))) {
             return;
