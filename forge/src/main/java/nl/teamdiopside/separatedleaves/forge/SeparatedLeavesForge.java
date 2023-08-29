@@ -7,7 +7,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import nl.teamdiopside.separatedleaves.JsonThing;
+import nl.teamdiopside.separatedleaves.Reload;
 import nl.teamdiopside.separatedleaves.SeparatedLeaves;
 
 import java.util.function.Consumer;
@@ -38,7 +38,7 @@ public class SeparatedLeavesForge {
 
     public static void reload() {
         if (SeparatedLeaves.minecraftServer != null) {
-            JsonThing.reload(SeparatedLeaves.minecraftServer.getResourceManager());
+            Reload.reload(SeparatedLeaves.minecraftServer.getResourceManager());
         } else {
             SeparatedLeaves.LOGGER.error("No server instance");
         }

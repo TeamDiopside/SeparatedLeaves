@@ -3,7 +3,7 @@ package nl.teamdiopside.separatedleaves.fabric;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import nl.teamdiopside.separatedleaves.JsonThing;
+import nl.teamdiopside.separatedleaves.Reload;
 import nl.teamdiopside.separatedleaves.SeparatedLeaves;
 
 public class SeparatedLeavesFabric implements ModInitializer {
@@ -27,7 +27,7 @@ public class SeparatedLeavesFabric implements ModInitializer {
 
     public static void reload() {
         if (SeparatedLeaves.minecraftServer != null) {
-            JsonThing.reload(SeparatedLeaves.minecraftServer.getResourceManager());
+            Reload.reload(SeparatedLeaves.minecraftServer.getResourceManager());
         } else {
             SeparatedLeaves.LOGGER.error("No server instance");
         }

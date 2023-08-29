@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import nl.teamdiopside.separatedleaves.JsonThing;
+import nl.teamdiopside.separatedleaves.Reload;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,7 +29,7 @@ public abstract class LeavesBlockMixin {
             mutableBlockPos.setWithOffset(blockPos, direction);
             BlockState targetState = levelAccessor.getBlockState(mutableBlockPos);
             Block targetBlock = targetState.getBlock();
-            for (JsonThing.LeavesRule rule : JsonThing.LEAVES_RULES) {
+            for (Reload.LeavesRule rule : Reload.LEAVES_RULES) {
                 if (!rule.leaves().contains(thisBlock)) {
                     continue;
                 }
