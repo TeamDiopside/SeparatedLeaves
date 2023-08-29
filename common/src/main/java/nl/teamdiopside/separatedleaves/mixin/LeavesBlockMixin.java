@@ -21,7 +21,7 @@ public abstract class LeavesBlockMixin {
 
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
     private static void updateDistance(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, CallbackInfoReturnable<BlockState> cir) {
-
+        boolean hasFile = false;
         int i = 7;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         Block thisBlock = levelAccessor.getBlockState(blockPos).getBlock();
@@ -33,6 +33,7 @@ public abstract class LeavesBlockMixin {
                 if (!rule.leaves().contains(thisBlock)) {
                     continue;
                 }
+                hasFile = true;
                 if (rule.logs().contains(targetBlock)) {
                     i = 1;
                     break;
@@ -42,6 +43,8 @@ public abstract class LeavesBlockMixin {
             }
             if (i == 1) break;
         }
-        cir.setReturnValue(blockState.setValue(DISTANCE, i));
+        if (hasFile) {
+            cir.setReturnValue(blockState.setValue(DISTANCE, i));
+        }
     }
 }
