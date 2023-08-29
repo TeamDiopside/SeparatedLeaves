@@ -2,84 +2,46 @@ package nl.teamdiopside.separatedleaves.mixin;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import nl.teamdiopside.separatedleaves.JsonThing;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.world.level.block.LeavesBlock.DISTANCE;
-
 @Mixin(LeavesBlock.class)
 public abstract class LeavesBlockMixin {
+    @Shadow @Final public static IntegerProperty DISTANCE;
+
     @Inject(method = "updateDistance", at = @At("HEAD"), cancellable = true)
     private static void updateDistance(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, CallbackInfoReturnable<BlockState> cir) {
 
-        if (levelAccessor.isClientSide()) {
-            return;
-        }
-
-        String namespace = blockState.getBlock().arch$registryName().getNamespace();
-        if (!(namespace.equals("minecraft") || namespace.equals("biomesoplenty") || namespace.equals("autumnity") || namespace.equals("quark") || namespace.equals("windswept") || namespace.equals("ecologist") || namespace.equals("environmental") || namespace.equals("atmospheric"))) {
-            return;
-        }
-
         int i = 7;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
+        Block thisBlock = levelAccessor.getBlockState(blockPos).getBlock();
         for (Direction direction : Direction.values()) {
             mutableBlockPos.setWithOffset(blockPos, direction);
-            i = Math.min(i, separatedLeaves$getDistance(blockState, levelAccessor.getBlockState(mutableBlockPos)) + 1);
+            BlockState targetState = levelAccessor.getBlockState(mutableBlockPos);
+            Block targetBlock = targetState.getBlock();
+            for (JsonThing.LeavesRule rule : JsonThing.LEAVES_RULES) {
+                if (!rule.leaves().contains(thisBlock)) {
+                    continue;
+                }
+                if (rule.logs().contains(targetBlock)) {
+                    i = 1;
+                    break;
+                } else if (targetBlock instanceof LeavesBlock && rule.leaves().contains(targetBlock)) {
+                    i = Math.min(i, targetState.getValue(DISTANCE) + 1);
+                }
+            }
             if (i == 1) break;
         }
         cir.setReturnValue(blockState.setValue(DISTANCE, i));
-    }
-
-    @Unique
-    private static int separatedLeaves$getDistance(BlockState thisState, BlockState targetState) {
-        ResourceLocation thisLeaves = thisState.getBlock().arch$registryName();
-        ResourceLocation target = targetState.getBlock().arch$registryName();
-        String thisWoodType = separatedLeaves$getWoodType(thisLeaves.getPath());
-        String targetWoodType = separatedLeaves$getWoodType(target.getPath());
-
-        if (separatedLeaves$isCertainLog(thisWoodType, target.getPath(), thisLeaves.getNamespace())) {
-            return 0;
-        }
-        if (targetState.getBlock() instanceof LeavesBlock && thisWoodType.equals(targetWoodType)) {
-            return targetState.getValue(DISTANCE);
-        }
-        return 7;
-    }
-
-    @Unique
-    private static String separatedLeaves$getWoodType(String string) {
-        if (string.contains("flowering_")) {
-            string = string.replace("flowering_", "");
-        }
-        return string.replace("_leaves", "");
-    }
-
-    @Unique
-    private static boolean separatedLeaves$isCertainLog(String wood, String log, String namespace) {
-        switch (wood) {
-            case "azalea", "origin" -> wood = "oak";
-            case "white_cherry", "pink_cherry", "snowblossom" -> wood = "cherry";
-            case "maple" -> wood = namespace.equals("biomesoplenty") ? "oak" : "maple";
-            case "orange_maple", "red_maple", "yellow_maple" -> wood = "maple";
-            case "yellow_autumn", "rainbow_birch" -> wood = "birch";
-            case "orange_autumn" -> wood = "dark_oak";
-            case "red_blossom", "orange_blossom", "yellow_blossom", "blue_blossom", "lavender_blossom", "pink_blossom" -> wood = "blossom";
-            case "white_wisteria", "pink_wisteria", "purple_wisteria", "blue_wisteria" -> wood = "wisteria";
-        }
-
-        return log.equals(wood + "_log") ||
-                log.equals(wood + "_wood") ||
-                log.equals("stripped_" + wood + "_log") ||
-                log.equals("stripped_" + wood + "_wood") ||
-                log.equals("watchful_" + wood + "_log") ||
-                log.equals("watchful_" + wood + "_wood");
     }
 }
