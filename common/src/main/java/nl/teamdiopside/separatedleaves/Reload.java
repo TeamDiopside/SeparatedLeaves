@@ -6,8 +6,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import dev.architectury.platform.Platform;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -67,13 +67,12 @@ public class Reload {
         Set<Block> blocks = new HashSet<>();
         for (JsonElement jsonElement : json.getAsJsonObject().get(string).getAsJsonArray()) {
             if (jsonElement.getAsString().startsWith("#")) {
-                TagKey<Block> blockTagKey = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(jsonElement.getAsString().replace("#", "")));
-                HolderSet.Named<Block> tag = Registry.BLOCK.getOrCreateTag(blockTagKey);
-                for (Holder<Block> blockHolder : tag) {
+                TagKey<Block> blockTagKey = TagKey.create(Registries.BLOCK, new ResourceLocation(jsonElement.getAsString().replace("#", "")));
+                for (Holder<Block> blockHolder : BuiltInRegistries.BLOCK.getOrCreateTag(blockTagKey)) {
                     blocks.add(blockHolder.value());
                 }
             } else {
-                Block block = Registry.BLOCK.get(new ResourceLocation(jsonElement.getAsString()));
+                Block block = BuiltInRegistries.BLOCK.get(new ResourceLocation(jsonElement.getAsString()));
                 if (block == Blocks.AIR && !jsonElement.getAsString().replace("minecraft:", "").equals("air")) {
                     SeparatedLeaves.LOGGER.error("Block \"" + jsonElement.getAsString() + "\" from " + key + " does not exist!");
                 } else {
