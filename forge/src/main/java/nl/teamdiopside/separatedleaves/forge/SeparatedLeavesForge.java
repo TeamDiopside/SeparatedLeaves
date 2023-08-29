@@ -39,8 +39,6 @@ public class SeparatedLeavesForge {
     public static void reload() {
         if (SeparatedLeaves.minecraftServer != null) {
             Reload.reload(SeparatedLeaves.minecraftServer.getResourceManager());
-        } else {
-            SeparatedLeaves.LOGGER.error("No server instance");
         }
     }
 }
