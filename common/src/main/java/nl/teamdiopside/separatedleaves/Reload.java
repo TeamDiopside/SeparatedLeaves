@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import dev.architectury.platform.Platform;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -68,8 +67,7 @@ public class Reload {
         for (JsonElement jsonElement : json.getAsJsonObject().get(string).getAsJsonArray()) {
             if (jsonElement.getAsString().startsWith("#")) {
                 TagKey<Block> blockTagKey = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(jsonElement.getAsString().replace("#", "")));
-                HolderSet.Named<Block> tag = Registry.BLOCK.getOrCreateTag(blockTagKey);
-                for (Holder<Block> blockHolder : tag) {
+                for (Holder<Block> blockHolder : Registry.BLOCK.getOrCreateTag(blockTagKey)) {
                     blocks.add(blockHolder.value());
                 }
             } else {
