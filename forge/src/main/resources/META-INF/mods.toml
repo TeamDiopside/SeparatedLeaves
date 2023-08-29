@@ -9,7 +9,7 @@ version = "${version}"
 displayName = "Separated Leaves"
 authors = "LarsMans"
 description = '''
-This mod makes leaves only connect to their corresponding log type
+This mod makes leaves only connect to their own log type
 '''
 logoFile = "icon.png"
 
@@ -23,13 +23,13 @@ side = "BOTH"
 [[dependencies.separatedleaves]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.18.2,)"
+versionRange = "[1.19.3,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.separatedleaves]]
 modId = "architectury"
 mandatory = true
-versionRange = "[4.11.91,)"
+versionRange = "[7.1.86,)"
 ordering = "AFTER"
 side = "BOTH"

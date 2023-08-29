@@ -41,11 +41,11 @@ dependencies {
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "separated-leaves"
-    versionNumber = "${rootProject.mod_version}-forge-1.18.2"
-    versionName = "${rootProject.mod_version} Forge 1.18.2"
+    versionNumber = "${rootProject.mod_version}-forge-1.20.1"
+    versionName = "${rootProject.mod_version} Forge 1.20.1"
     versionType = "release"
     uploadFile = remapJar
-    gameVersions = ["1.18", "1.18.1", "1.18.2"]
+    gameVersions = ["1.19.3", "1.19.4", "1.20", "1.20.1"]
     loaders = ["forge"]
     dependencies {
         required.project "architectury-api"
@@ -63,16 +63,17 @@ curseforge {
         changelog = rootProject.file("CHANGELOG_LATEST.md").text
         changelogType = "markdown"
         releaseType = "release"
-        addGameVersion "1.18"
-        addGameVersion "1.18.1"
-        addGameVersion "1.18.2"
+        addGameVersion "1.19.3"
+        addGameVersion "1.19.4"
+        addGameVersion "1.20"
+        addGameVersion "1.20.1"
         addGameVersion "Forge"
 
         relations {
             requiredDependency "architectury-api"
         }
         mainArtifact(remapJar) {
-            displayName = "${rootProject.mod_version} Forge 1.18.2"
+            displayName = "${rootProject.mod_version} Forge 1.20.1"
         }
         options {
             javaVersionAutoDetect = false
@@ -100,7 +101,7 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
-    archiveClassifier = "forge-1.19.3"
+    archiveClassifier = "forge-1.20.1"
 }
 
 jar {

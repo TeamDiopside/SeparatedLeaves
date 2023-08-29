@@ -3,7 +3,7 @@
   "id": "separatedleaves",
   "version": "${version}",
   "name": "Separated Leaves",
-  "description": "This mod makes leaves only connect to their corresponding log type",
+  "description": "This mod makes leaves only connect to their own log type",
   "authors": [
     "LarsMans"
   ],
@@ -24,7 +24,7 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.18.2",
-    "architectury": ">=4.11.91"
+    "minecraft": ">=1.19.3",
+    "architectury": ">=7.1.86"
   }
 }
