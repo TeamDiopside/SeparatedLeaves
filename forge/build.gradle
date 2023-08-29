@@ -100,7 +100,7 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
-    archiveClassifier = "forge-1.19"
+    archiveClassifier = "forge-1.19.2"
 }
 
 jar {
