@@ -26,7 +26,7 @@ Want to learn how? Take a look at the [Docs](https://docs.teamdiopside.nl/separa
 - Autumnity
 - Atmospheric
 - Biomes o' Plenty
-- Ecologist
+- Ecologics
 - Environmental
 - Quark
 - Upgrade Aquatic
