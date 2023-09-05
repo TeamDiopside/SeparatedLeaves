@@ -1,0 +1,4 @@
+{
+  "leaves": ["byg:orchard_leaves", "byg:flowering_orchard_leaves", "byg:ripe_orchard_leaves"],
+  "logs": ["#minecraft:oak_logs"]
+}
