@@ -49,6 +49,12 @@ modrinth {
     loaders = ["forge"]
     dependencies {
         required.project "architectury-api"
+        optional.project "biomesyougo"
+        optional.project "ecologics"
+        optional.project "hex-casting"
+        optional.project "premium-wood"
+        optional.project "quark"
+        optional.project "regions-unexplored"
     }
     changelog = rootProject.file("CHANGELOG_LATEST.md").text
 
@@ -71,6 +77,19 @@ curseforge {
 
         relations {
             requiredDependency "architectury-api"
+            optionalDependency "atmospheric"
+            optionalDependency "autumnity"
+            optionalDependency "biomes-o-plenty"
+            optionalDependency "ecologics"
+            optionalDependency "environmental"
+            optionalDependency "hexcasting"
+            optionalDependency "malum"
+            optionalDependency "oh-the-biomes-youll-go"
+            optionalDependency "premium-wood"
+            optionalDependency "quark"
+            optionalDependency "regions-unexplored"
+            optionalDependency "upgrade-aquatic"
+            optionalDependency "windsweptmod"
         }
         mainArtifact(remapJar) {
             displayName = "${rootProject.mod_version} Forge 1.20.1"
