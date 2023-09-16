@@ -23,12 +23,18 @@ This means that you can add compatibility for any mod yourself, through data pac
 Want to learn how? Take a look at the [Docs](https://docs.teamdiopside.nl/separated-leaves/).
 
 ### It has built-in compatibility with:
-- Autumnity
 - Atmospheric
+- Autumnity
 - Biomes o' Plenty
 - Ecologics
 - Environmental
+- Hex Casting
+- Malum
+- Oh The Biomes You'll Go
+- Premium Wood
 - Quark
+- Reqions Unexplored
+- The Twilight Forest
 - Upgrade Aquatic
 - Windswept
 
