@@ -43,6 +43,11 @@ modrinth {
     dependencies {
         required.project "architectury-api"
         required.project "fabric-api"
+        optional.project "biomesyougo"
+        optional.project "ecologics"
+        optional.project "hex-casting"
+        optional.project "premium-wood"
+        optional.project "regions-unexplored"
     }
     changelog = rootProject.file("CHANGELOG_LATEST.md").text
 
@@ -65,6 +70,11 @@ curseforge {
         relations {
             requiredDependency "architectury-api"
             requiredDependency "fabric-api"
+            optionalDependency "ecologics"
+            optionalDependency "hexcasting"
+            optionalDependency "oh-the-biomes-youll-go-fabric"
+            optionalDependency "premium-wood"
+            optionalDependency "regions-unexplored"
         }
         mainArtifact(remapJar) {
             displayName = "${rootProject.mod_version} Fabric 1.18.2"
