@@ -41,8 +41,8 @@ dependencies {
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "separated-leaves"
-    versionNumber = "${rootProject.mod_version}-forge-1.19.2"
-    versionName = "${rootProject.mod_version} Forge 1.19.2"
+    versionNumber = "${rootProject.mod_version}-forge-${rootProject.latest_version}"
+    versionName = "${rootProject.mod_version} Forge ${rootProject.latest_version}"
     versionType = "release"
     uploadFile = remapJar
     gameVersions = ["1.19", "1.19.1", "1.19.2"]
@@ -91,7 +91,7 @@ curseforge {
             optionalDependency "windsweptmod"
         }
         mainArtifact(remapJar) {
-            displayName = "${rootProject.mod_version} Forge 1.19.2"
+            displayName = "${rootProject.mod_version} Forge ${rootProject.latest_version}"
         }
         options {
             javaVersionAutoDetect = false
@@ -119,7 +119,7 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
-    archiveClassifier = "forge-1.19.2"
+    archiveClassifier = "forge-${rootProject.latest_version}"
 }
 
 jar {
