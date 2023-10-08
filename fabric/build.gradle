@@ -34,11 +34,11 @@ dependencies {
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "separated-leaves"
-    versionNumber = "${rootProject.mod_version}-fabric-1.20.1"
-    versionName = "${rootProject.mod_version} Fabric 1.20.1"
+    versionNumber = "${rootProject.mod_version}-fabric-${rootProject.latest_version}"
+    versionName = "${rootProject.mod_version} Fabric ${rootProject.latest_version}"
     versionType = "release"
     uploadFile = remapJar
-    gameVersions = ["1.19.3", "1.19.4", "1.20", "1.20.1"]
+    gameVersions = ["1.19.3", "1.19.4", "1.20", "1.20.1", "1.20.2"]
     loaders = ["fabric"]
     dependencies {
         required.project "architectury-api"
@@ -66,6 +66,7 @@ curseforge {
         addGameVersion "1.19.4"
         addGameVersion "1.20"
         addGameVersion "1.20.1"
+        addGameVersion "1.20.2"
         addGameVersion "Fabric"
 
         relations {
@@ -78,7 +79,7 @@ curseforge {
             optionalDependency "regions-unexplored"
         }
         mainArtifact(remapJar) {
-            displayName = "${rootProject.mod_version} Fabric 1.20.1"
+            displayName = "${rootProject.mod_version} Fabric ${rootProject.latest_version}"
         }
         options {
             javaVersionAutoDetect = false
@@ -106,7 +107,7 @@ remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
     classifier null
-    archiveClassifier = "fabric-1.20.1"
+    archiveClassifier = "fabric-${rootProject.latest_version}"
 }
 
 jar {
