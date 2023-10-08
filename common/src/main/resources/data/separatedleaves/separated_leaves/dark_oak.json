@@ -1,4 +1,4 @@
 {
-  "leaves": ["dark_oak_leaves"],
-  "logs": ["#dark_oak_logs"]
+  "leaves": ["minecraft:dark_oak_leaves"],
+  "logs": ["#minecraft:dark_oak_logs"]
 }

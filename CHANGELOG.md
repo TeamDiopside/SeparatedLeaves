@@ -1,5 +1,8 @@
 # Separated Leaves Changelog
 
+## 2.2.1
+- The Oak Leaves bushes in jungles now work!
+
 ## 2.2.0
 - Added support for:
   - Hex Casting ([unilock](https://github.com/TeamDiopside/SeparatedLeaves/pull/2))

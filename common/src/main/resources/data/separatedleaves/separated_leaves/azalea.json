@@ -1,4 +1,4 @@
 {
-  "leaves": ["azalea_leaves", "flowering_azalea_leaves"],
-  "logs": ["#oak_logs"]
+  "leaves": ["minecraft:azalea_leaves", "minecraft:flowering_azalea_leaves"],
+  "logs": ["#minecraft:oak_logs"]
 }

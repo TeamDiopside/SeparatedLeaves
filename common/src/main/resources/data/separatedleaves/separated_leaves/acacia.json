@@ -1,4 +1,4 @@
 {
-  "leaves": ["acacia_leaves"],
-  "logs": ["#acacia_logs"]
+  "leaves": ["minecraft:acacia_leaves"],
+  "logs": ["#minecraft:acacia_logs"]
 }
