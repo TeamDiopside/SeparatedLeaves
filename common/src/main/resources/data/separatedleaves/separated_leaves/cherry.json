@@ -1,4 +1,4 @@
 {
-  "leaves": ["cherry_leaves"],
-  "logs": ["#cherry_logs"]
+  "leaves": ["minecraft:cherry_leaves"],
+  "logs": ["#minecraft:cherry_logs"]
 }

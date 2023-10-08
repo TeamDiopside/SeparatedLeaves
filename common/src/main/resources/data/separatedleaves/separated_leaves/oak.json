@@ -1,4 +1,4 @@
 {
-  "leaves": ["oak_leaves"],
-  "logs": ["#oak_logs"]
+  "leaves": ["minecraft:oak_leaves"],
+  "logs": ["#minecraft:oak_logs", "#minecraft:jungle_logs"]
 }
