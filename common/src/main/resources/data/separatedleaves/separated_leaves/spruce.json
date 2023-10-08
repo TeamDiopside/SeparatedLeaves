@@ -1,4 +1,4 @@
 {
-  "leaves": ["spruce_leaves"],
-  "logs": ["#spruce_logs"]
+  "leaves": ["minecraft:spruce_leaves"],
+  "logs": ["#minecraft:spruce_logs"]
 }
