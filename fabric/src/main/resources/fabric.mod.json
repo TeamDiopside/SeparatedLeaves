@@ -12,7 +12,7 @@
   },
   "license": "All Rights Reserved",
   "icon": "icon.png",
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
     "main": [
       "nl.teamdiopside.separatedleaves.fabric.SeparatedLeavesFabric"

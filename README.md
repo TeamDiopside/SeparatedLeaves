@@ -3,11 +3,10 @@
 ### Separated Leaves is a server-side data-driven mod which, you guessed it, separates leaves.
 
 ---
+
 [![architectury-api](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/architectury-api_vector.svg)](https://modrinth.com/mod/architectury-api)
 [![Fabric API](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg)](https://modrinth.com/mod/fabric-api)
 [![Forge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/forge_vector.svg)](https://files.minecraftforge.net/net/minecraftforge/forge/)
-
-[![RocketNode](https://teamdiopside.nl/assets/diopside/rocketnode2.png)](https://billing.rocketnode.com/aff.php?aff=150440)
 
 ---
 
