@@ -30,7 +30,7 @@ configurations {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
@@ -45,7 +45,7 @@ modrinth {
     versionName = "${rootProject.mod_version} Forge ${rootProject.latest_version}"
     versionType = "release"
     uploadFile = remapJar
-    gameVersions = ["1.19.3", "1.19.4", "1.20", "1.20.1", "1.20.2"]
+    gameVersions = ["1.19.3", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4"]
     loaders = ["forge"]
     dependencies {
         required.project "architectury-api"
@@ -74,6 +74,8 @@ curseforge {
         addGameVersion "1.20"
         addGameVersion "1.20.1"
         addGameVersion "1.20.2"
+        addGameVersion "1.20.3"
+        addGameVersion "1.20.4"
         addGameVersion "Forge"
 
         relations {
