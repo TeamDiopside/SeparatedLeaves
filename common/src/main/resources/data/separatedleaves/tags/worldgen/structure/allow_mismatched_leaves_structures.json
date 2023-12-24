@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#the_bumblezone:sempiternal_sanctums",
+      "required": false
+    },
+    {
+      "id": "the_bumblezone:hanging_garden",
+      "required": false
+    }
+  ]
+}
