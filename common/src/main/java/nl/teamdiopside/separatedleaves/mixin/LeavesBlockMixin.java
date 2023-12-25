@@ -34,6 +34,11 @@ public abstract class LeavesBlockMixin {
             }
         }
 
+        // Same for biomes
+        if (levelAccessor.getBiome(blockPos).is(SeparatedLeaves.ALLOW_MISMATCHED_LEAVES_BIOMES)) {
+            return;
+        }
+
         boolean hasFile = false;
         int i = 7;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
