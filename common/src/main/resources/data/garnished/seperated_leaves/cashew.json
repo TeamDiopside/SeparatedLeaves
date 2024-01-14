@@ -1,4 +1,4 @@
 {
-  "leaves": ["garnished:nut_leaves", "garnished:cashew_leaves"],
+  "leaves": ["garnished:nut_leaves", "garnished:cashew_leaves", "minecraft:oak_leaves"],
   "logs": ["#garnished:nut_logs"]
 }
