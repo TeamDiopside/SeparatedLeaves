@@ -37,8 +37,8 @@ public abstract class LeavesBlockMixin {
         }
 
         // Same for biomes
-        ResourceLocation biome = levelAccessor.registryAccess().registryOrThrow(Registries.BIOME).getKey(levelAccessor.getBiome(blockPos).value());
-        if (!Reload.BIOME_NAMESPACES.contains(biome.getNamespace()) && !Reload.BIOMES.contains(biome.toString())) {
+        ResourceLocation biome = levelAccessor.registryAccess().lookupOrThrow(Registries.BIOME).getKey(levelAccessor.getBiome(blockPos).value());
+        if (biome == null || (!Reload.BIOME_NAMESPACES.contains(biome.getNamespace()) && !Reload.BIOMES.contains(biome.toString()))) {
             return;
         }
 

@@ -1,5 +1,8 @@
 # Separated Leaves Changelog
 
+## 2.5.0 - 1.21.4
+- Updated to 1.21.4
+
 ## 2.5.0
 - Updated to 1.21 & NeoForge
 - The mod is now disabled in unknown modded biomes by default. This is to make sure no leaves get destroyed in biome mods without current support.
