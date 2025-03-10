@@ -1,5 +1,10 @@
 # Separated Leaves Changelog
 
+## 2.6.0
+- Removed the need for biomes.json
+  - Biomes are now enabled when the namespace has rules for Separated Leaves.
+  - For more info, check the [documentation](https://docs.teamdiopside.nl/separated-leaves/biomes-and-structures)!
+
 ## 2.5.0
 - Updated to 1.21 & NeoForge
 - The mod is now disabled in unknown modded biomes by default. This is to make sure no leaves get destroyed in biome mods without current support.
