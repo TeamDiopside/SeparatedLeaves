@@ -33,7 +33,7 @@ public class Reload {
     public static void apply(Map<ResourceLocation, JsonElement> jsons) {
         LEAVES_RULES.clear();
         List<LeavesRule> rules = new ArrayList<>();
-        Set<LeavesRule> biomeNamespaces = new HashSet<>();
+        Set<String> biomeNamespaces = new HashSet<>();
 
         List<JsonFile> files = new ArrayList<>();
         jsons.forEach((key, json) -> files.add(new JsonFile(key, json)));
