@@ -22,18 +22,15 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class Reload {
 
     public record LeavesRule(Set<Block> leaves, Set<Block> logs) {}
-    public record LeavesJson(Optional<Set<String>> leaves, Optional<Set<String>> logs, Optional<Boolean> allBiomes, Optional<Set<String>> biomes) {
+    public record LeavesJson(Set<String> leaves, Set<String> logs) {
         public static final Codec<LeavesJson> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.STRING.listOf().xmap(Set::copyOf, List::copyOf).optionalFieldOf("leaves").forGetter(LeavesJson::leaves),
-                Codec.STRING.listOf().xmap(Set::copyOf, List::copyOf).optionalFieldOf("logs").forGetter(LeavesJson::logs),
-                Codec.BOOL.optionalFieldOf("all").forGetter(LeavesJson::allBiomes),
-                Codec.STRING.listOf().xmap(Set::copyOf, List::copyOf).optionalFieldOf("biomes").forGetter(LeavesJson::biomes)
+                Codec.STRING.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("leaves").forGetter(LeavesJson::leaves),
+                Codec.STRING.listOf().xmap(Set::copyOf, List::copyOf).fieldOf("logs").forGetter(LeavesJson::logs)
         ).apply(instance, LeavesJson::new));
     }
     public record JsonFile(ResourceLocation key, LeavesJson json) {}
 
     public static final List<LeavesRule> LEAVES_RULES = new CopyOnWriteArrayList<>();
-    public static final Set<String> BIOMES = new CopyOnWriteArraySet<>();
     public static final Set<String> BIOME_NAMESPACES = new CopyOnWriteArraySet<>();
 
     public static void reload(ResourceManager resourceManager) {
@@ -42,11 +39,9 @@ public class Reload {
 
     public static void apply(Map<ResourceLocation, LeavesJson> jsons) {
         LEAVES_RULES.clear();
-        BIOMES.clear();
         BIOME_NAMESPACES.clear();
 
         List<LeavesRule> rules = new ArrayList<>();
-        Set<String> biomes = new HashSet<>();
         Set<String> biomeNamespaces = new HashSet<>();
 
         List<JsonFile> files = new ArrayList<>();
@@ -62,38 +57,21 @@ public class Reload {
                 continue;
             }
 
-            // biomes.json
-            if (key.getPath().equals("biomes")) {
-                try {
-                    if (json.allBiomes().isPresent() && json.allBiomes().get()) {
-                        biomeNamespaces.add(key.getNamespace());
-                    } else {
-                        json.biomes().ifPresentOrElse(biomes::addAll, () -> SeparatedLeaves.LOGGER.error("Failed to parse {}'s biomes.json for Separated Leaves, Error: {}", key.getNamespace(), "No biomes found!"));
-                    }
-                } catch (Exception e) {
-                    SeparatedLeaves.LOGGER.error("Failed to parse {}'s biomes.json for Separated Leaves, Error: {}", key.getNamespace(), e);
-                }
-            } else {
-                if (json.leaves().isPresent() && json.logs().isPresent()) {
-                    try {
-                        Set<Block> leaves = getBlocks(key, json.leaves().get());
-                        Set<Block> logs = getBlocks(key, json.logs().get());
+            biomeNamespaces.add(key.getNamespace());
+            try {
+                Set<Block> leaves = getBlocks(key, json.leaves());
+                Set<Block> logs = getBlocks(key, json.logs());
 
-                        if (!leaves.isEmpty() && !logs.isEmpty()) {
-                            rules.add(new LeavesRule(leaves, logs));
-                            SeparatedLeaves.LOGGER.info("Loaded Separated Leaves file {}", key);
-                        }
-                    } catch (Exception e) {
-                        SeparatedLeaves.LOGGER.error("Failed to parse JSON object for leaves rule {}.json, Error: {}", key, e);
-                    }
-                } else {
-                    SeparatedLeaves.LOGGER.error("Failed to parse JSON object for leaves rule {}.json, Error: {}", key, "Invalid Format!");
+                if (!leaves.isEmpty() && !logs.isEmpty()) {
+                    rules.add(new LeavesRule(leaves, logs));
+                    SeparatedLeaves.LOGGER.info("Loaded Separated Leaves file {}", key);
                 }
+            } catch (Exception e) {
+                SeparatedLeaves.LOGGER.error("Failed to parse JSON object for leaves rule {}.json, Error: {}", key, e);
             }
         }
 
         LEAVES_RULES.addAll(rules);
-        BIOMES.addAll(biomes);
         BIOME_NAMESPACES.addAll(biomeNamespaces);
     }
 
