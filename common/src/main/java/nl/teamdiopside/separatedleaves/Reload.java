@@ -15,15 +15,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Reload {
 
     public record LeavesRule(Set<Block> leaves, Set<Block> logs) {}
     public record JsonFile(ResourceLocation key, JsonElement json) {}
 
-    public static final List<LeavesRule> LEAVES_RULES = new ArrayList<>();
-    public static final Set<String> BIOMES = new HashSet<>();
-    public static final Set<String> BIOME_NAMESPACES = new HashSet<>();
+    public static final List<LeavesRule> LEAVES_RULES = new CopyOnWriteArrayList<>();
+    public static final Set<String> BIOME_NAMESPACES = new CopyOnWriteArraySet<>();
 
     public static void reload(ResourceManager resourceManager) {
         apply(getJsons(resourceManager));
@@ -32,6 +33,7 @@ public class Reload {
     public static void apply(Map<ResourceLocation, JsonElement> jsons) {
         LEAVES_RULES.clear();
         List<LeavesRule> rules = new ArrayList<>();
+        Set<LeavesRule> biomeNamespaces = new HashSet<>();
 
         List<JsonFile> files = new ArrayList<>();
         jsons.forEach((key, json) -> files.add(new JsonFile(key, json)));
@@ -46,21 +48,7 @@ public class Reload {
                 continue;
             }
 
-            // biomes.json
-            if (key.getPath().equals("biomes")) {
-                try {
-                    if (json.getAsJsonObject().get("all").getAsBoolean()) {
-                        BIOME_NAMESPACES.add(key.getNamespace());
-                    } else {
-                        json.getAsJsonObject().get("biomes").getAsJsonArray().forEach(jsonElement -> BIOMES.add(jsonElement.getAsString()));
-                    }
-                } catch (Exception e) {
-                    SeparatedLeaves.LOGGER.error("Failed to parse {}'s biomes.json for Separated Leaves, Error: {}", key.getNamespace(), e);
-                }
-
-                continue;
-            }
-
+            biomeNamespaces.add(key.getNamespace());
             // Leaves rule
             try {
                 Set<Block> leaves = getBlocks(key, json, "leaves");
@@ -76,6 +64,7 @@ public class Reload {
         }
 
         LEAVES_RULES.addAll(rules);
+        BIOME_NAMESPACES.addAll(biomeNamespaces);
     }
 
     public static Set<Block> getBlocks(ResourceLocation key, JsonElement json, String string) {
