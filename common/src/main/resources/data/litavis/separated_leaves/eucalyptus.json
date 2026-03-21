@@ -1,0 +1,4 @@
+{
+  "leaves": ["litavis:eucalyptus_leaves"],
+  "logs": ["litavis:eucalyptus_log", "litavis:stripped_eucalyptus_log", "litavis:eucalyptus_wood", "litavis:stripped_eucalyptus_wood"]
+}
